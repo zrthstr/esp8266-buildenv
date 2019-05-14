@@ -4,15 +4,6 @@ FQBN="esp8266:esp8266:nodemcu"
 PROJECT="${HOME}/Arduino/MyFirstSketch"
 BOARDDEV="/dev/ttyUSB0"
 
-#test:
-#	arduino-cli sketch new MyFirstSketch
-
-#show:
-#	cat /home/luca/Arduino/MyFirstSketch/MyFirstSketch.ino
-
-#edit:
-#	~/Arduino/MyFirstSketch/MyFirstSketch.ino
-
 init:
 	arduino-cli config init
 
@@ -25,13 +16,8 @@ install:
 list-board:
 	arduino-cli board list
 
-#search-hw:
-#	arduino-cli core search 8266
-
-
 new-project:
 	arduino-cli sketch new MyFirstSketch
-
 
 build:
 	arduino-cli compile --fqbn $(FQDN) $(PROJECT)
@@ -39,6 +25,16 @@ build:
 upload:
 	arduino-cli upload -p $(BOARDDEV) --fqbn $(FQBN) $(PROJECT)
 
+lib-search:
+	arduino-cli lib search wifi101
+
+build-serial:
+	arduino-cli compile --fqbn $(FQBN) "${PWD}/Serial"
+
+upload-serial:
+	arduino-cli upload -p $(BOARDDEV) --fqbn $(FQBN) "${PWD}/Serial"
+
+serial:	build-serial upload-serial
 
 # NPOPE!
 # edit: ~/go/src/github.com/arduino/arduino-cli/configs/testdata/navigate/inheritance/first/arduino-cli.yaml 
